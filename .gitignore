@@ -1,0 +1,6 @@
+venv/
+../coursework_3_source/.idea/
+.*_cache/
+__pycache__
+*.db
+.coverage
