@@ -8,6 +8,6 @@ __all__ = [
     "GenreDAO",
     "MovieDAO",
     "DirectorDAO",
-    "FavoriteMovieDAO",
+    # "FavoriteMovieDAO",
     "UserDAO"
 ]
