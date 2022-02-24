@@ -2,6 +2,7 @@ from sqlalchemy.orm.scoping import scoped_session
 
 from project.dao.models.user import User
 
+
 class UserDAO:
     def __init__(self, session: scoped_session):
         self._db_session = session
@@ -32,4 +33,3 @@ class UserDAO:
 
         self._db_session.add(user)
         self._db_session.commit()
-

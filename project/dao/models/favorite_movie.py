@@ -7,7 +7,7 @@ class FavoriteMovie(BaseMixin, db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user = db.relationship("User")
-    movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"), nullable=False)
     movie = db.relationship("Movie")
 
     def __repr__(self):

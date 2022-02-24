@@ -17,7 +17,7 @@ class UsersView(Resource):
         return UsersService(db.session).get_all_users()
 
 
-@users_ns.route("/<int:movie_id>")
+@users_ns.route("/<int:user_id>")
 class UserView(Resource):
     @auth_required
     @users_ns.response(200, "OK")

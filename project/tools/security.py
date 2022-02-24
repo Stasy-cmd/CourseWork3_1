@@ -4,6 +4,7 @@ import datetime
 import hashlib
 import hmac
 from flask_restx import abort
+from flask import request
 import jwt
 
 from project.exceptions import ItemNotFound
@@ -24,8 +25,20 @@ def get_password_hash(password):
     return base64.b64encode(generate_password_digest(password)).decode('utf-8')
 
 
+def jwt_decode(token):
+    try:
+        decode_jwt = jwt.decode(token, current_app.config["SECRET_KEY"], current_app.config["JWT_ALGORITHM"])
+    except:
+        return False
+    else:
+        return decode_jwt
+
+
 def auth_check():
-    pass
+    if "Authorization" not in request.headers:
+        return False
+    token = request.headers["Authorization"].split("Bearer ")[-1]
+    return jwt_decode(token)
 
 
 def auth_required(func):
@@ -74,15 +87,6 @@ def login_user(req_json, user):
         if compare_passwords(pass_hashed, user_pass):
             return generate_token(req_json)
     raise ItemNotFound
-
-
-def jwt_decode(token):
-    try:
-        decodet_jwt = jwt.decode(token, current_app.config["SECRET_KEY"], current_app.config["JWT_ALGORITHM"])
-    except:
-        return False
-    else:
-        return decodet_jwt
 
 
 def refresh_user_token(req_json):
