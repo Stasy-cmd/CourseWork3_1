@@ -11,7 +11,7 @@ users_ns = Namespace("users")
 @users_ns.route("/")
 class UsersView(Resource):
     @users_ns.response(200, "OK")
-    @auth_required
+    #@auth_required
     def get(self):
         """Get all users"""
         return UsersService(db.session).get_all_users()
@@ -19,7 +19,7 @@ class UsersView(Resource):
 
 @users_ns.route("/<int:user_id>")
 class UserView(Resource):
-    @auth_required
+    #@auth_required
     @users_ns.response(200, "OK")
     @users_ns.response(404, "User not found")
     def get(self, user_id: int):

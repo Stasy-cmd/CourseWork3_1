@@ -2,29 +2,33 @@ from project.dao.user import UserDAO
 from project.exceptions import ItemNotFound
 from project.schemas.user import UserSchema
 from project.services.base import BaseService
+from project.dao.models.user import User
 
 class UsersService(BaseService):
-    def __init__(self, dao: UserDAO):
-        self.dao = dao
+    def __init__(self, session):
+        self.session = session
 
     def get_user_by_id(self, uid):
-        user = UserDAO(self._db_session).get_by_id(uid)
+        user = self.session.query(User).get_by_id(uid)
         if not user:
             raise ItemNotFound
         return UserSchema().dump(user)
 
     def get_all_users(self):
-        users = UserDAO(self._db_session).get_all()
+        users = self.session.query(User).get_all()
         return UserSchema(many=True).dump(users)
 
     def create(self, uid):
-        return self.dao.create(uid)
+        user = self.session.query(User).create(uid)
+        return UserSchema().dump(user)
 
     def update(self, uid):
-        self.dao.update(uid)
+        self.session.query(User).update(uid)
 
     def delete(self, uid):
-        self.dao.delete(uid)
+        self.session.query(User).delete(uid)
 
     def get_item_by_email(self, email):
-        pass
+        user = self.session.query(User).filter(User.email == email).one()
+        return UserSchema ().dump ( user )
+        

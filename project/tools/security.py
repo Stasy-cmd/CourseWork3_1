@@ -82,7 +82,7 @@ def login_user(req_json, user):
     user_pass = req_json.get("password")
     if user_email and user_pass:
         pass_hashed = user["password"]
-        req_json["role"] = user["role"]
+        req_json["email"] = user["email"]
         req_json["id"] = user["id"]
         if compare_passwords(pass_hashed, user_pass):
             return generate_token(req_json)

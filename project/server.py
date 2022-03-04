@@ -8,7 +8,7 @@ from project.views import movies_ns
 from project.views import users_ns
 from project.views import director_ns
 from project.views import auth_ns
-from run import app
+#from run import app
 
 api = Api(
     authorizations={
@@ -40,5 +40,4 @@ def create_app(config_obj):
     return app
 
 
-if __name__ == '__main__':
-    app.run(host="localhost", port=10001, debug=True)
+
